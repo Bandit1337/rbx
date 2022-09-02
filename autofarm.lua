@@ -73,7 +73,7 @@ local booths = {
 local queueonteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 local httprequest = (syn and syn.request) or http and http.request or http_request or (fluxus and fluxus.request) or request
 local httpservice = game:GetService('HttpService')
-queueonteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Bandit1337/rbx/main/autofarm.lua'))()")
+queueonteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/tzechco/roblox-scripts/main/PLS%20DONATE/autofarm.lua'))()")
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tzechco/roblox-scripts/main/UI/ui-engine-v2.lua"))()
 getgenv().settings = {}
 --Load Settings
@@ -249,6 +249,77 @@ local chatTab = Window:AddTab("Chat")
 local webhookTab = Window:AddTab("Webhook")
 local serverHopTab = Window:AddTab("Server Hop")
 
+mouse = game.Players.LocalPlayer:GetMouse()
+animationdebounce = false
+gotanim = false
+animations = {
+Shy = 3337978742;
+}
+
+function PlayAnim(id)
+    animationdebounce = true
+    local Anim = Instance.new("Animation")
+    Anim.AnimationId = "rbxassetid://"..id
+    local salute = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(Anim)
+    salute.Name = "FRICK"
+    salute:Play(0)
+    salute:AdjustSpeed(1)
+    salute.Stopped:Connect(function()
+        animationdebounce = false
+    end)
+end
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+    gotanim = false
+    lower = string.lower(msg)
+    if lower == "/e t" then
+        PlayAnim(animations["T"])
+        gotanim = true
+    end
+    for i,v in pairs(animations) do
+        if lower == string.sub(string.lower("/e "..tostring(i)), 1, #lower) and gotanim == false then
+            gotanim = true
+            PlayAnim(v)
+        end
+    end
+    if gotanim == false and animationdebounce == false then
+        if lower == "/e summon" or lower == "/e sum" then
+            PlayAnim(animations["Ud'zal's Summoning"])
+            gotanim = true
+        end
+        if lower == "/e rage" or lower == "/e rag" then
+            PlayAnim(animations["Borock's Rage"])
+            gotanim = true
+        end
+    end
+end)
+
+function animsbuttonfunction()
+    print("------------------")
+    for i,v in pairs(animations) do 
+        print(tostring(i))
+    end
+    print("------------------")
+end
+
+animsbindable = Instance.new("BindableFunction")
+animsbindable.OnInvoke = animsbuttonfunction
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Done injecting!";
+    Text = "Free Animations Script by Aidez!";
+    Icon = "rbxassetid://847562022";
+    Duration = 5;
+})
+
+game.StarterGui:SetCore("SendNotification", {
+    Title = "How to use:";
+    Text = "Say /e EMOTENAME to use that emote! (Shortened names work!)";
+    Icon = "rbxassetid://2541869220";
+    Duration = 8;
+    Callback = animsbindable;
+    Button1 = "Print emote names";
+})
+
 --Booth Settings
 local textUpdateToggle = boothTab:AddSwitch("Text Update", function(bool)
     if settingsLock then
@@ -269,7 +340,7 @@ local danceToggle = boothTab:AddSwitch("Dance", function(bool)
     getgenv().settings.danceToggle = bool
     saveSettings()
     if bool then
-        Players:Chat("/e dance")
+        Players:Chat("/e shy")
     else
         Players:Chat("/e wave")
     end
@@ -622,7 +693,7 @@ Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Players.LocalPlaye
 require(game.ReplicatedStorage.Remotes).Event("RefreshItems"):InvokeServer()
 if getgenv().settings.danceToggle then
     task.wait(1)
-    Players:Chat("/e dance")
+    Players:Chat("/e shy")
 end
 if getgenv().settings.textUpdateToggle and getgenv().settings.customBoothText then
     update()
