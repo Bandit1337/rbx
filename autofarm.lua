@@ -341,8 +341,9 @@ local danceToggle = boothTab:AddSwitch("Dance", function(bool)
     saveSettings()
     while bool
     do
+        task.wait(0.1)
         Players:Chat("/e shy")
-        Wait(7)
+        task.wait(7)
     end
 end)
 danceToggle:Set(getgenv().settings.danceToggle)
