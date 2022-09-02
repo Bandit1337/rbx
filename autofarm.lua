@@ -339,10 +339,10 @@ local danceToggle = boothTab:AddSwitch("Dance", function(bool)
     end
     getgenv().settings.danceToggle = bool
     saveSettings()
-    if bool then
+    while bool
+    do
         Players:Chat("/e shy")
-    else
-        Players:Chat("/e wave")
+        Wait(7)
     end
 end)
 danceToggle:Set(getgenv().settings.danceToggle)
